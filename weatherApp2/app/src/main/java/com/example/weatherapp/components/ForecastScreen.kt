@@ -16,7 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 
 @Composable
-fun ForecastScreen(navController: NavController) {
+fun ForecastScreen() {
     var searchState : String by remember { mutableStateOf("") }
 
     Box(modifier = Modifier.fillMaxSize(),
