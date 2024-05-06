@@ -19,14 +19,10 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun WeatherNowScreen(navController: NavController) {
+fun WeatherNowScreen() {
 
     Box(modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center) {
-        Button(onClick = {
-            navController.navigate("ForecastScreen")
-        }) {
-            Text(text = "Go to Screen 2")
-        }
+        Text("Weather Now")
     }
 }
