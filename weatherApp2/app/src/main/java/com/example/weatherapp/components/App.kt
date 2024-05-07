@@ -1,7 +1,9 @@
 package com.example.weatherapp.components
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Text
@@ -9,6 +11,9 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
@@ -58,7 +63,11 @@ fun CreateBottomBar(navController: NavHostController) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
 
-    BottomNavigation (){
+    BottomNavigation (
+        modifier = Modifier.background(color = Color.White), // Example: set background color
+        backgroundColor = Color(0xFF87CEEB),
+        contentColor = Color.White,
+    ){
         screens.forEach { screen ->
             AddItem(screen = screen, currentDestination = currentDestination, navController = navController)
         }
@@ -69,7 +78,7 @@ fun CreateBottomBar(navController: NavHostController) {
 fun RowScope.AddItem(
     screen: BottomBar,
     currentDestination: NavDestination?,
-    navController: NavHostController
+    navController: NavHostController,
 ) {
     BottomNavigationItem(
         label = {
@@ -86,6 +95,9 @@ fun RowScope.AddItem(
         } == true,
         onClick = {
             navController.navigate(screen.route)
-        }
+        },
+        modifier = Modifier
+            .background(Color.Transparent) // Set the background of the item to transparent
+            .padding(vertical = 8.dp) // Adjust padding as needed
     )
 }
