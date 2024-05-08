@@ -1,4 +1,4 @@
-package com.example.weatherapp.location
+package com.example.weatherapp.components.location
 
 
 import android.content.Context
