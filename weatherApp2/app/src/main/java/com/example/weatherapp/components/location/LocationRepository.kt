@@ -17,6 +17,7 @@ import com.google.android.gms.location.Priority
 
 class LocationRepository(private val context: Context) {
     fun startLocationUpdates(callback: (Location?) -> Unit) {
+        Log.d("Location", "startLocationUpdates called")
         // Check if location permissions are granted
         if (ContextCompat.checkSelfPermission(
                 context,
@@ -27,15 +28,17 @@ class LocationRepository(private val context: Context) {
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
         ) {
+            Log.d("Location", "Permissions granted, requesting location updates")
             // Permissions are granted, proceed with requesting location updates
             val fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context)
             val locationRequest = LocationRequest.Builder(10000L)
                 .setPriority(Priority.PRIORITY_HIGH_ACCURACY)
-                .setIntervalMillis(5000L)
+                .setIntervalMillis(10000L)
                 .build()
 
             val locationCallback = object : LocationCallback() {
                 override fun onLocationResult(locationResult: LocationResult) {
+                    Log.d("Location", "Location received: ${locationResult.lastLocation}")
                     callback(locationResult.lastLocation)
                 }
             }
@@ -44,6 +47,7 @@ class LocationRepository(private val context: Context) {
                 locationCallback,
                 Looper.getMainLooper() // callback is done in the main thread
             )
+
         } else {
             Log.d("Location", "Not granted!")
         }

@@ -1,6 +1,7 @@
 package com.example.weatherapp.components.location
 
 import android.Manifest
+import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.material3.Text
@@ -18,6 +19,7 @@ fun LocationOutput() {
         onResult = { permissions ->
             // Check if all requested permissions have been granted
             val allPermissionsGranted = permissions.entries.all { it.value }
+            Log.d("StartLocationUpdates", "Start")
             if (allPermissionsGranted) {
                 viewModel.startLocationUpdates()
             }
