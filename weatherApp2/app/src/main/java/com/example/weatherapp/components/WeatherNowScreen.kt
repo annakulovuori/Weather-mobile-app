@@ -32,6 +32,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.weatherapp.R
+import com.example.weatherapp.components.location.LocationOutput
 
 @Composable
 fun WeatherNowScreen() {
@@ -40,22 +41,25 @@ fun WeatherNowScreen() {
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center,
     ) {
-        Box(
-            modifier = Modifier
-                .background(color = Color(0xFF4682B4), shape = RoundedCornerShape(16.dp))
-                .padding(30.dp)
-        ) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Icon(
-                    imageVector = Icons.Outlined.Cloud,
-                    contentDescription = "Cloud",
-                    modifier = Modifier.size(48.dp)
-                )
-                Text(
-                    text = "Weather Now",
-                    modifier = Modifier.padding(start = 16.dp),
-                    color = Color.White
-                )
+        Column {
+            LocationOutput()
+            Box(
+                modifier = Modifier
+                    .background(color = Color(0xFF4682B4), shape = RoundedCornerShape(16.dp))
+                    .padding(30.dp)
+            ) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Icon(
+                        imageVector = Icons.Outlined.Cloud,
+                        contentDescription = "Cloud",
+                        modifier = Modifier.size(48.dp)
+                    )
+                    Text(
+                        text = "Weather Now",
+                        modifier = Modifier.padding(start = 16.dp),
+                        color = Color.White
+                    )
+                }
             }
         }
     }
