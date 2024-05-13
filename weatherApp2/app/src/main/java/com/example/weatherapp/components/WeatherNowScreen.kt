@@ -18,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.example.weatherapp.components.location.LocationOutput
 
 @Composable
 fun WeatherNowScreen() {
@@ -27,6 +28,7 @@ fun WeatherNowScreen() {
         contentAlignment = Alignment.Center,
     ) {
         Column {
+            LocationOutput()
             Box(
                 modifier = Modifier
                     .background(color = Color(0xFF4682B4), shape = RoundedCornerShape(16.dp))

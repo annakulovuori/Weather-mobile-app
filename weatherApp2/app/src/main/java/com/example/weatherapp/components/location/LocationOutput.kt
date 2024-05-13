@@ -10,7 +10,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
-fun LocationOutput() : List<Double>? {
+fun locationOutput() : List<Double>? {
     val viewModel: LocationViewModel = viewModel()
     val location = viewModel.location
 
