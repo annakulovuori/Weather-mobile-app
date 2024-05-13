@@ -45,7 +45,7 @@ class LocationRepository(private val context: Context) {
             fusedLocationProviderClient.requestLocationUpdates(
                 locationRequest,
                 locationCallback,
-                Looper.getMainLooper() // callback is done in the main thread
+                Looper.getMainLooper()
             )
 
         } else {
