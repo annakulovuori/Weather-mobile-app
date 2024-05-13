@@ -10,7 +10,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
-fun LocationOutput() {
+fun LocationOutput() : List<Double>? {
     val viewModel: LocationViewModel = viewModel()
     val location = viewModel.location
 
@@ -33,7 +33,7 @@ fun LocationOutput() {
         ))
     }
 
-    Text(text = location.value?.let { loc ->
-        "Lat: ${loc.latitude}, Lon: ${loc.longitude}"
-    } ?: "Location not available")
+    return location.value?.let { loc ->
+        listOf(loc.latitude, loc.longitude)
+    }
 }
