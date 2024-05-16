@@ -7,10 +7,14 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.core.location.component1
+import androidx.core.location.component2
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.weatherapp.components.weather.WeatherApi
+import com.example.weatherapp.components.weather.WeatherRepository
 
 @Composable
-fun locationOutput() : List<Double>? {
+fun WeatherScreen() {
     val viewModel: LocationViewModel = viewModel()
     val location = viewModel.location
 
@@ -33,7 +37,14 @@ fun locationOutput() : List<Double>? {
         ))
     }
 
-    return location.value?.let { loc ->
-        listOf(loc.latitude, loc.longitude)
+    val locationData = location.value
+
+    if (locationData != null) {
+        val (latitude, longitude) = locationData
+        val weatherList by WeatherRepository.getWeatherList(latitude, longitude).collectAsState(initial = emptyList())
+
+        // Render your UI with weatherList
+    } else {
+        // Render loading or error state
     }
 }
