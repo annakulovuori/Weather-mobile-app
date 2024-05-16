@@ -28,7 +28,6 @@ fun WeatherNowScreen() {
         contentAlignment = Alignment.Center,
     ) {
         Column {
-            LocationOutput()
             Box(
                 modifier = Modifier
                     .background(color = Color(0xFF4682B4), shape = RoundedCornerShape(16.dp))
