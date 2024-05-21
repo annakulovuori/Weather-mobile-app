@@ -1,4 +1,4 @@
-package com.example.weatherapp.components.weather
+/*package com.example.weatherapp.components.weather
 
 sealed class Result<T>(
     val data: T? = null,
@@ -6,4 +6,4 @@ sealed class Result<T>(
 ) {
     class Success<T> (data: T?): Result<T>(data)
     class Error<T> (data: T? = null, message: String): Result<T>(data, message)
-}
+}*/
