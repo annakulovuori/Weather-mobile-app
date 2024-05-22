@@ -40,11 +40,10 @@ fun weatherInfo() {
 
     if (locationData != null) {
         val (latitude, longitude) = locationData
-        val weatherRepository = WeatherRepository(WeatherApiService.create())
-        //val weatherList by weatherRepository.getWeatherList(latitude, longitude).collectAsState(initial = emptyList())
+
 
 
     } else {
-        // Laita loading thai error
+        // Laita loading tai error
     }
 }
