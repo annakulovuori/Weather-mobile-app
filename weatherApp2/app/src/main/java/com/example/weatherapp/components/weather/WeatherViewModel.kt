@@ -19,7 +19,7 @@ class WeatherViewModel(
     fun getTemperature() {
         viewModelScope.launch {
             try {
-                val temperature = weatherRepository.getTemperature(23.2, 61.0) // Assuming this is a suspend function
+                val temperature = weatherRepository.getTemperature(61.49, 23.78) // Assuming this is a suspend function
                 _temperature.value = temperature
             } catch (e: Exception) {
                 // Handle error if needed

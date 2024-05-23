@@ -10,7 +10,7 @@ class WeatherRepository(
     suspend fun getTemperature(latitude: Double, longitude: Double): Double? {
         var temperatureFromApi: Double? = null
         try {
-            temperatureFromApi = api.getWeatherData(latitude = 61.49773, longitude = 23.779099).current.temperature_2m
+            temperatureFromApi = api.getWeatherData(latitude = 61.49, longitude = 23.78).current.temperature_2m
         } catch (e: IOException) {
             println("Error loading weather")
         } catch (e: HttpException) {
