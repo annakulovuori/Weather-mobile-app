@@ -26,13 +26,16 @@ fun WeatherNowScreen() {
     val temperature = viewModel.temperature.collectAsState().value
 
     viewModel.getTemperature()
+    //scroll state
+    val scrollState = rememberScrollState()
 
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(top = 65.dp),
         contentAlignment = Alignment.Center,
+
     ) {
-        // Add scroll state
-        val scrollState = rememberScrollState()
 
         Column(
             modifier = Modifier.verticalScroll(scrollState)
@@ -68,68 +71,28 @@ fun WeatherNowScreen() {
 
                     // Today's forecast
                     Column {
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            Text(
-                                text = "01.00",
-                                fontSize = 30.sp,
-                                modifier = Modifier.padding(start = 16.dp),
-                                color = Color.White
-                            )
-                            Spacer(modifier = Modifier.size(50.dp))
-                            Icon(
-                                imageVector = Icons.Outlined.WbSunny,
-                                contentDescription = "Sun",
-                                modifier = Modifier.size(30.dp)
-                            )
-                            Spacer(modifier = Modifier.size(15.dp))
-                            Text(
-                                text = "${temperature ?: "Loading..."}°C",
-                                fontSize = 35.sp,
-                                modifier = Modifier.padding(start = 16.dp),
-                                color = Color.White
-                            )
-                        }
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            Text(
-                                text = "02.00",
-                                fontSize = 30.sp,
-                                modifier = Modifier.padding(start = 16.dp),
-                                color = Color.White
-                            )
-                            Spacer(modifier = Modifier.size(50.dp))
-                            Icon(
-                                imageVector = Icons.Outlined.WaterDrop,
-                                contentDescription = "Rain",
-                                modifier = Modifier.size(30.dp)
-                            )
-                            Spacer(modifier = Modifier.size(15.dp))
-                            Text(
-                                text = "${temperature ?: "Loading..."}°C",
-                                fontSize = 35.sp,
-                                modifier = Modifier.padding(start = 16.dp),
-                                color = Color.White
-                            )
-                        }
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            Text(
-                                text = "03.00",
-                                fontSize = 30.sp,
-                                modifier = Modifier.padding(start = 16.dp),
-                                color = Color.White
-                            )
-                            Spacer(modifier = Modifier.size(50.dp))
-                            Icon(
-                                imageVector = Icons.Outlined.WaterDrop,
-                                contentDescription = "Rain",
-                                modifier = Modifier.size(30.dp)
-                            )
-                            Spacer(modifier = Modifier.size(15.dp))
-                            Text(
-                                text = "${temperature ?: "Loading..."}°C",
-                                fontSize = 35.sp,
-                                modifier = Modifier.padding(start = 16.dp),
-                                color = Color.White
-                            )
+                        for (hour in 0 until 24) {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Text(
+                                    text = "01.00",
+                                    fontSize = 30.sp,
+                                    modifier = Modifier.padding(start = 16.dp),
+                                    color = Color.White
+                                )
+                                Spacer(modifier = Modifier.size(50.dp))
+                                Icon(
+                                    imageVector = Icons.Outlined.WbSunny,
+                                    contentDescription = "Sun",
+                                    modifier = Modifier.size(30.dp)
+                                )
+                                Spacer(modifier = Modifier.size(15.dp))
+                                Text(
+                                    text = "${temperature ?: "Loading..."}°C",
+                                    fontSize = 35.sp,
+                                    modifier = Modifier.padding(start = 16.dp),
+                                    color = Color.White
+                                )
+                            }
                         }
                     }
                 }
