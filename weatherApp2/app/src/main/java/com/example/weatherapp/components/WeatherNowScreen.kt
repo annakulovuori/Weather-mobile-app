@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -43,19 +44,79 @@ fun WeatherNowScreen() {
                     .background(color = Color(0xFF4682B4), shape = RoundedCornerShape(16.dp))
                     .padding(30.dp)
             ) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(
-                        imageVector = Icons.Outlined.Cloud,
-                        contentDescription = "Cloud",
-                        modifier = Modifier.size(50.dp)
-                    )
+                Column {
                     Text(
-                        text = "${temperature ?: "Loading..."}°C",
-                        fontSize = 55.sp,
-                        modifier = Modifier.padding(start = 16.dp),
+                        text = "TODAY",
+                        fontSize = 20.sp,
+                        modifier = Modifier.padding(start = 20.dp),
                         color = Color.White
+
                     )
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Spacer(modifier = Modifier.size(30.dp))
+                        Icon(
+                            imageVector = Icons.Outlined.Cloud,
+                            contentDescription = "Cloud",
+                            modifier = Modifier.size(50.dp)
+                        )
+                        Spacer(modifier = Modifier.size(25.dp))
+                        Text(
+                            text = "${temperature ?: "Loading..."}°C",
+                            fontSize = 55.sp,
+                            modifier = Modifier.padding(start = 16.dp),
+                            color = Color.White
+                        )
+                    }
+                    Spacer(modifier = Modifier.size(50.dp))
+
+                    //Todays forecast
+
+                    Column {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Text(
+                                text = "01.00",
+                                fontSize = 30.sp,
+                                modifier = Modifier.padding(start = 16.dp),
+                                color = Color.White
+                            )
+                            Spacer(modifier = Modifier.size(50.dp))
+                            Icon(
+                                imageVector = Icons.Outlined.WbSunny,
+                                contentDescription = "Sun",
+                                modifier = Modifier.size(30.dp)
+                            )
+                            Spacer(modifier = Modifier.size(15.dp))
+                            Text(
+                                text = "${temperature ?: "Loading..."}°C",
+                                fontSize = 35.sp,
+                                modifier = Modifier.padding(start = 16.dp),
+                                color = Color.White
+                            )
+                        }
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Text(
+                                text = "02.00",
+                                fontSize = 30.sp,
+                                modifier = Modifier.padding(start = 16.dp),
+                                color = Color.White
+                            )
+                            Spacer(modifier = Modifier.size(50.dp))
+                            Icon(
+                                imageVector = Icons.Outlined.WaterDrop,
+                                contentDescription = "Rain",
+                                modifier = Modifier.size(30.dp)
+                            )
+                            Spacer(modifier = Modifier.size(15.dp))
+                            Text(
+                                text = "${temperature ?: "Loading..."}°C",
+                                fontSize = 35.sp,
+                                modifier = Modifier.padding(start = 16.dp),
+                                color = Color.White
+                            )
+                        }
+                    }
                 }
+
             }
         }
     }
