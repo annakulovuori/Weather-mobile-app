@@ -33,70 +33,74 @@ fun WeatherNowScreen() {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(top = 20.dp),
+            .padding(top = 5.dp),
         contentAlignment = Alignment.Center,
 
     ) {
-        Box (
-            modifier = Modifier
-                .background(color = Color(0xFF4682B4), shape = RoundedCornerShape(16.dp))
-                .padding(30.dp)
-                .fillMaxWidth()
-                .heightIn(min = 0.dp, max = 450.dp)
-        ){
-            Column(
-                modifier = Modifier.verticalScroll(scrollState)
-            ) {
+        //delete
+        Column {
+            Text(
+                text = "TODAY",
+                fontSize = 18.sp,
+                modifier = Modifier.padding(start = 70.dp),
+                color = Color.White
+            )
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Spacer(modifier = Modifier.size(70.dp))
+                Icon(
+                    imageVector = Icons.Outlined.Cloud,
+                    contentDescription = "Cloud",
+                    modifier = Modifier.size(60.dp)
+                )
+                Spacer(modifier = Modifier.size(25.dp))
                 Text(
-                    text = "TODAY",
-                    fontSize = 20.sp,
-                    modifier = Modifier.padding(start = 20.dp),
+                    text = "${temperature ?: "Loading..."}°C",
+                    fontSize = 55.sp,
+                    modifier = Modifier.padding(start = 16.dp),
                     color = Color.White
                 )
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Spacer(modifier = Modifier.size(30.dp))
-                    Icon(
-                        imageVector = Icons.Outlined.Cloud,
-                        contentDescription = "Cloud",
-                        modifier = Modifier.size(50.dp)
-                    )
-                    Spacer(modifier = Modifier.size(25.dp))
-                    Text(
-                        text = "${temperature ?: "Loading..."}°C",
-                        fontSize = 55.sp,
-                        modifier = Modifier.padding(start = 16.dp),
-                        color = Color.White
-                    )
-                }
-                Spacer(modifier = Modifier.size(50.dp))
+            }
+            Spacer(modifier = Modifier.size(20.dp))
+            Box (
+                modifier = Modifier
+                    //.background(color = Color(0xFF76B7DE), shape = RoundedCornerShape(16.dp))
+                    .padding(30.dp)
+                    .fillMaxWidth()
+                    .heightIn(min = 0.dp, max = 400.dp)
+            ){
+                Column(
+                    modifier = Modifier.verticalScroll(scrollState)
+                ) {
 
-                // Today's forecast
-                Column {
-                    for (hour in 0 until 24) {
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            Text(
-                                text = "01.00",
-                                fontSize = 30.sp,
-                                modifier = Modifier.padding(start = 16.dp),
-                                color = Color.White
-                            )
-                            Spacer(modifier = Modifier.size(50.dp))
-                            Icon(
-                                imageVector = Icons.Outlined.WbSunny,
-                                contentDescription = "Sun",
-                                modifier = Modifier.size(30.dp)
-                            )
-                            Spacer(modifier = Modifier.size(15.dp))
-                            Text(
-                                text = "${temperature ?: "Loading..."}°C",
-                                fontSize = 35.sp,
-                                modifier = Modifier.padding(start = 16.dp),
-                                color = Color.White
-                            )
+                    // Today's forecast
+                    Column {
+                        for (hour in 0 until 24) {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Text(
+                                    text = "01.00",
+                                    fontSize = 30.sp,
+                                    modifier = Modifier.padding(start = 16.dp),
+                                    color = Color.White
+                                )
+                                Spacer(modifier = Modifier.size(50.dp))
+                                Icon(
+                                    imageVector = Icons.Outlined.WbSunny,
+                                    contentDescription = "Sun",
+                                    modifier = Modifier.size(30.dp)
+                                )
+                                Spacer(modifier = Modifier.size(15.dp))
+                                Text(
+                                    text = "${temperature ?: "Loading..."}°C",
+                                    fontSize = 35.sp,
+                                    modifier = Modifier.padding(start = 16.dp),
+                                    color = Color.White
+                                )
+                            }
                         }
                     }
                 }
             }
         }
+
         }
     }
