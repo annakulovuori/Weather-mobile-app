@@ -19,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.weatherapp.components.weather.WeatherRepository
 import com.example.weatherapp.components.weather.WeatherViewModel
@@ -46,10 +47,11 @@ fun WeatherNowScreen() {
                     Icon(
                         imageVector = Icons.Outlined.Cloud,
                         contentDescription = "Cloud",
-                        modifier = Modifier.size(48.dp)
+                        modifier = Modifier.size(50.dp)
                     )
                     Text(
-                        text = "Weather Now: ${temperature ?: "Loading..."}",
+                        text = "${temperature ?: "Loading..."}°C",
+                        fontSize = 55.sp,
                         modifier = Modifier.padding(start = 16.dp),
                         color = Color.White
                     )
