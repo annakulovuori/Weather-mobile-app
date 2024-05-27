@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.weatherapp.components.weather.Weather
 import com.example.weatherapp.components.weather.WeatherViewModel
 import com.example.weatherapp.components.weather.WeatherViewModelFactory
 
@@ -30,13 +31,15 @@ fun WeatherNowScreen() {
     //scroll state for inner content
     val scrollState = rememberScrollState()
 
+    val currentTime = weather?.current?.time
+
     Box(
         modifier = Modifier
             .fillMaxSize()
             .padding(top = 5.dp),
         contentAlignment = Alignment.Center,
 
-    ) {
+        ) {
         Column {
             Text(
                 text = "TODAY",
@@ -60,13 +63,13 @@ fun WeatherNowScreen() {
                 )
             }
             Spacer(modifier = Modifier.size(20.dp))
-            Box (
+            Box(
                 modifier = Modifier
                     //.background(color = Color(0xFF76B7DE), shape = RoundedCornerShape(16.dp))
                     .padding(30.dp)
                     .fillMaxWidth()
                     .heightIn(min = 0.dp, max = 400.dp)
-            ){
+            ) {
                 Column(
                     modifier = Modifier.verticalScroll(scrollState)
                 ) {
@@ -75,9 +78,10 @@ fun WeatherNowScreen() {
                     Column {
                         for (hour in 0 until 24) {
                             Row(verticalAlignment = Alignment.CenterVertically) {
+                                Spacer(modifier = Modifier.size(35.dp))
                                 Text(
-                                    text = weather?.hourly?.time?.get(hour) ?: "Loading...",
-                                    fontSize = 20.sp,
+                                    text = getHourFromTime(index = hour, weather = weather) ?: "Loading...",
+                                    fontSize = 30.sp,
                                     modifier = Modifier.padding(start = 16.dp),
                                     color = Color.White
                                 )
@@ -90,7 +94,7 @@ fun WeatherNowScreen() {
                                 Spacer(modifier = Modifier.size(15.dp))
                                 Text(
                                     text = "${weather?.hourly?.temperature_2m?.get(hour) ?: "Loading..."}°C",
-                                    fontSize = 20.sp,
+                                    fontSize = 30.sp,
                                     modifier = Modifier.padding(start = 16.dp),
                                     color = Color.White
                                 )
@@ -101,6 +105,11 @@ fun WeatherNowScreen() {
             }
         }
 
-        }
     }
+}
+
+fun getHourFromTime(index: Int, weather: Weather?): String? {
+    val timeString = weather?.hourly?.time?.get(index)
+    return timeString?.substring(11, 13)
+}
 
