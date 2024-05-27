@@ -11,6 +11,8 @@ interface WeatherApi {
         @Query("latitude") latitude: Double,
         @Query("longitude") longitude: Double,
         @Query("current") current: String = "temperature_2m",
+        @Query("daily") daily: String = "weather_code,temperature_2m_max,temperature_2m_min",
+        @Query("hourly") hourly: String = "weather_code,temperature_2m",
         @Query("timezone") timezone: String = "auto"
     ): Weather
 
