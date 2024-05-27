@@ -12,17 +12,16 @@ import androidx.lifecycle.ViewModelProvider
 class WeatherViewModel(
     private val weatherRepository: WeatherRepository
 ): ViewModel() {
-    // private val _temperature = MutableStateFlow<Double>()
-    private val _temperature = MutableStateFlow<Double?>(null) // StateFlow to hold weather data
-    val temperature = _temperature.asStateFlow() // Expose as StateFlow
 
-    fun getTemperature() {
+    private val _weather = MutableStateFlow<Weather?>(null) // StateFlow to hold weather data
+    val weather = _weather.asStateFlow() // Expose as StateFlow
+
+    fun getWeather() {
         viewModelScope.launch {
             try {
-                val temperature = weatherRepository.getTemperature(61.49, 23.78) // Assuming this is a suspend function
-                _temperature.value = temperature
+                val weatherData = weatherRepository.getWeather(61.49, 23.78)
+                _weather.value = weatherData
             } catch (e: Exception) {
-                // Handle error if needed
                 println("Error fetching temperature: ${e.message}")
             }
         }
