@@ -23,9 +23,9 @@ import com.example.weatherapp.components.weather.WeatherViewModelFactory
 @Composable
 fun WeatherNowScreen() {
     val viewModel: WeatherViewModel = viewModel(factory = WeatherViewModelFactory.create())
-    val temperature = viewModel.temperature.collectAsState().value
+    val weather = viewModel.weather.collectAsState().value
 
-    viewModel.getTemperature()
+    viewModel.getWeather()
 
     //scroll state for inner content
     val scrollState = rememberScrollState()
@@ -37,13 +37,12 @@ fun WeatherNowScreen() {
         contentAlignment = Alignment.Center,
 
     ) {
-        //delete
         Column {
             Text(
                 text = "TODAY",
                 fontSize = 18.sp,
                 modifier = Modifier.padding(start = 70.dp),
-                color = Color.White
+                color = Color.Yellow
             )
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Spacer(modifier = Modifier.size(70.dp))
@@ -54,7 +53,7 @@ fun WeatherNowScreen() {
                 )
                 Spacer(modifier = Modifier.size(25.dp))
                 Text(
-                    text = "${temperature ?: "Loading..."}°C",
+                    text = "${weather?.current?.temperature_2m ?: "Loading..."}°C",
                     fontSize = 55.sp,
                     modifier = Modifier.padding(start = 16.dp),
                     color = Color.White
@@ -77,21 +76,21 @@ fun WeatherNowScreen() {
                         for (hour in 0 until 24) {
                             Row(verticalAlignment = Alignment.CenterVertically) {
                                 Text(
-                                    text = "01.00",
-                                    fontSize = 30.sp,
+                                    text = weather?.hourly?.time?.get(hour) ?: "Loading...",
+                                    fontSize = 20.sp,
                                     modifier = Modifier.padding(start = 16.dp),
                                     color = Color.White
                                 )
                                 Spacer(modifier = Modifier.size(50.dp))
                                 Icon(
-                                    imageVector = Icons.Outlined.WbSunny,
+                                    imageVector = Icons.Outlined.WaterDrop,
                                     contentDescription = "Sun",
                                     modifier = Modifier.size(30.dp)
                                 )
                                 Spacer(modifier = Modifier.size(15.dp))
                                 Text(
-                                    text = "${temperature ?: "Loading..."}°C",
-                                    fontSize = 35.sp,
+                                    text = "${weather?.hourly?.temperature_2m?.get(hour) ?: "Loading..."}°C",
+                                    fontSize = 20.sp,
                                     modifier = Modifier.padding(start = 16.dp),
                                     color = Color.White
                                 )
@@ -104,3 +103,4 @@ fun WeatherNowScreen() {
 
         }
     }
+
