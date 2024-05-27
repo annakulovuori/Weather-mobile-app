@@ -7,15 +7,16 @@ import java.io.IOException
 class WeatherRepository(
     private val api: WeatherApi
 ) {
-    suspend fun getTemperature(latitude: Double, longitude: Double): Double? {
-        var temperatureFromApi: Double? = null
+    suspend fun getWeather(latitude: Double, longitude: Double): Weather? {
+        var weatherFromApi: Weather? = null
         try {
-            temperatureFromApi = api.getWeatherData(latitude = 61.49, longitude = 23.78).current.temperature_2m
+            weatherFromApi = api.getWeatherData(latitude, longitude)
+            println(weatherFromApi)
         } catch (e: IOException) {
             println("Error loading weather")
         } catch (e: HttpException) {
             println("Error loading weather")
         }
-        return temperatureFromApi
+        return weatherFromApi
         }
     }
