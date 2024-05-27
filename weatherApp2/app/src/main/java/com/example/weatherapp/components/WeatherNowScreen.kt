@@ -32,6 +32,11 @@ fun WeatherNowScreen() {
     val scrollState = rememberScrollState()
 
     val currentTime = weather?.current?.time
+    println(currentTime)
+    val timeList = weather?.hourly?.time
+    println(timeList)
+    val timeIndexNow = getCurrentTimesIndex(weather = weather, weatherList = timeList, currentTime = currentTime)
+    println(timeIndexNow)
 
     Box(
         modifier = Modifier
@@ -76,28 +81,32 @@ fun WeatherNowScreen() {
 
                     // Today's forecast
                     Column {
-                        for (hour in 0 until 24) {
-                            Row(verticalAlignment = Alignment.CenterVertically) {
-                                Spacer(modifier = Modifier.size(35.dp))
-                                Text(
-                                    text = getHourFromTime(index = hour, weather = weather) ?: "Loading...",
-                                    fontSize = 30.sp,
-                                    modifier = Modifier.padding(start = 16.dp),
-                                    color = Color.White
-                                )
-                                Spacer(modifier = Modifier.size(50.dp))
-                                Icon(
-                                    imageVector = Icons.Outlined.WaterDrop,
-                                    contentDescription = "Sun",
-                                    modifier = Modifier.size(30.dp)
-                                )
-                                Spacer(modifier = Modifier.size(15.dp))
-                                Text(
-                                    text = "${weather?.hourly?.temperature_2m?.get(hour) ?: "Loading..."}°C",
-                                    fontSize = 30.sp,
-                                    modifier = Modifier.padding(start = 16.dp),
-                                    color = Color.White
-                                )
+                        val startHour = timeIndexNow ?: 0
+                        if (timeList != null) {
+                            for (hour in startHour until startHour + 24) {
+                                Row(verticalAlignment = Alignment.CenterVertically) {
+                                    Spacer(modifier = Modifier.size(35.dp))
+                                    Text(
+                                        text = getHourFromTime(index = hour, weather = weather)
+                                            ?: "Loading...",
+                                        fontSize = 30.sp,
+                                        modifier = Modifier.padding(start = 16.dp),
+                                        color = Color.White
+                                    )
+                                    Spacer(modifier = Modifier.size(50.dp))
+                                    Icon(
+                                        imageVector = Icons.Outlined.WaterDrop,
+                                        contentDescription = "Sun",
+                                        modifier = Modifier.size(30.dp)
+                                    )
+                                    Spacer(modifier = Modifier.size(15.dp))
+                                    Text(
+                                        text = "${weather?.hourly?.temperature_2m?.get(hour) ?: "Loading..."}°C",
+                                        fontSize = 30.sp,
+                                        modifier = Modifier.padding(start = 16.dp),
+                                        color = Color.White
+                                    )
+                                }
                             }
                         }
                     }
@@ -113,3 +122,13 @@ fun getHourFromTime(index: Int, weather: Weather?): String? {
     return timeString?.substring(11, 13)
 }
 
+fun getCurrentTimesIndex(weather: Weather?, weatherList: List<String>?, currentTime: String?) : Int? {
+    if (weatherList != null && currentTime != null) {
+        for (i in weatherList.indices) {
+            if (weatherList[i] == currentTime) {
+                return i
+            }
+        }
+    }
+    return null
+}
