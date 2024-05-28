@@ -37,6 +37,7 @@ fun WeatherNowScreen() {
     println("Current Time: $currentTime")
     println("Time List: $timeList")
 
+    //antaa null välillä
     val timeIndexNow = getCurrentTimesIndex(weather = weather, weatherList = timeList, currentTime = currentTime)
     println("Time Index Now: $timeIndexNow")
 

@@ -19,7 +19,7 @@ class WeatherViewModel(
     fun getWeather() {
         viewModelScope.launch {
             try {
-                val weatherData = weatherRepository.getWeather(61.49, 23.78)
+                val weatherData = weatherRepository.getWeather(61.434803, 23.828926)
                 _weather.value = weatherData
             } catch (e: Exception) {
                 println("Error fetching temperature: ${e.message}")
