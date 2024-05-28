@@ -74,8 +74,8 @@ fun ForecastScreen() {
                                 Row(verticalAlignment = Alignment.CenterVertically) {
                                     Spacer(modifier = Modifier.size(35.dp))
                                     Text(
-                                        text = getDayFromDate(index = hour, weather = weather)
-                                            ?: "Loading",
+                                        text = "${getDayFromDate(index = hour, weather = weather)
+                                            ?: "Loading"}.${getMonthFromDate(hour, weather)}",
                                         fontSize = 30.sp,
                                         modifier = Modifier.padding(start = 16.dp),
                                         color = Color.White
@@ -88,7 +88,7 @@ fun ForecastScreen() {
                                     )
                                     Spacer(modifier = Modifier.size(15.dp))
                                     Text(
-                                        text = "${weather.daily.temperature_2m_max[hour] ?: "Loading"}°C",
+                                        text = "${weather.daily.temperature_2m_max[hour]}°C",
                                         fontSize = 30.sp,
                                         modifier = Modifier.padding(start = 16.dp),
                                         color = Color.White
@@ -106,4 +106,8 @@ fun ForecastScreen() {
 fun getDayFromDate(index: Int, weather: Weather?): String? {
     val timeString = weather?.daily?.time?.get(index)
     return timeString?.substring(8, 10)
+}
+fun getMonthFromDate(index: Int, weather: Weather?): String? {
+    val timeString = weather?.daily?.time?.get(index)
+    return timeString?.substring(5, 7)
 }
