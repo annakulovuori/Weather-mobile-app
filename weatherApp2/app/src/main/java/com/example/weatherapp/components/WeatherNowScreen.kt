@@ -32,13 +32,12 @@ fun WeatherNowScreen() {
     //scroll state for inner content
     val scrollState = rememberScrollState()
 
-    val currentTime = weather?.current?.time
+    val currentTime = currentTimeToEvenHour(weather = weather)
     val timeList = weather?.hourly?.time
     println("Current Time: $currentTime")
     println("Time List: $timeList")
 
-    //antaa null välillä
-    val timeIndexNow = getCurrentTimesIndex(weather = weather, weatherList = timeList, currentTime = currentTime)
+    val timeIndexNow = getCurrentTimesIndex(weatherList = timeList, currentTime = currentTime)
     println("Time Index Now: $timeIndexNow")
 
     Box(
@@ -59,7 +58,6 @@ fun WeatherNowScreen() {
                 Spacer(modifier = Modifier.size(70.dp))
                 Icon(
                     imageVector = WeatherType.getWeatherType(weather?.current?.weather_code).icon,
-                    //imageVector = Icons.Outlined.Cloud,
                     contentDescription = WeatherType.getWeatherType(weather?.current?.weather_code).weatherDesc,
                     modifier = Modifier.size(60.dp)
                 )
@@ -71,10 +69,23 @@ fun WeatherNowScreen() {
                     color = Color.White
                 )
             }
-            Spacer(modifier = Modifier.size(20.dp))
+            Spacer(modifier = Modifier.size(25.dp))
+            Row {
+                Text(text = "HOUR",
+                    fontSize = 18.sp,
+                    color = Color.Yellow,
+                    modifier = Modifier.padding(start = 75.dp)
+                )
+
+                Text(text = "°C",
+                    fontSize = 18.sp,
+                    color = Color.White,
+                    modifier = Modifier.padding(start = 140.dp)
+                )
+            }
             Box(
                 modifier = Modifier
-                    .padding(30.dp)
+                    .padding(15.dp)
                     .fillMaxWidth()
                     .heightIn(min = 0.dp, max = 400.dp)
             ) {
@@ -88,7 +99,7 @@ fun WeatherNowScreen() {
                         if (timeList != null) {
                             for (hour in startHour until startHour + 24) {
                                 Row(verticalAlignment = Alignment.CenterVertically) {
-                                    Spacer(modifier = Modifier.size(35.dp))
+                                    Spacer(modifier = Modifier.size(50.dp))
                                     Text(
                                         text = getHourFromTime(index = hour, weather = weather)
                                             ?: "Loading...",
@@ -126,7 +137,13 @@ fun getHourFromTime(index: Int, weather: Weather?): String? {
     return timeString?.substring(11, 13)
 }
 
-fun getCurrentTimesIndex(weather: Weather?, weatherList: List<String>?, currentTime: String?) : Int? {
+fun currentTimeToEvenHour(weather: Weather?): String {
+    val timeString = weather?.current?.time
+    return "${timeString?.substring(0, 14)}00"
+}
+
+
+fun getCurrentTimesIndex(weatherList: List<String>?, currentTime: String?) : Int? {
     if (weatherList != null && currentTime != null) {
         for (i in weatherList.indices) {
             if (weatherList[i] == currentTime) {
