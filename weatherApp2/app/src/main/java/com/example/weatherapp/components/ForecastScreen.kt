@@ -56,23 +56,42 @@ fun ForecastScreen() {
 
         ) {
         Column {
-            Spacer(modifier = Modifier.size(20.dp))
+
+            Text(text = "7 DAY FORECAST",
+                fontSize = 35.sp,
+                color = Color.Yellow,
+                modifier = Modifier.padding(start = 65.dp)
+            )
+
             Box(
                 modifier = Modifier
                     .padding(30.dp)
                     .fillMaxWidth()
-                    .heightIn(min = 0.dp, max = 400.dp)
+                    .heightIn(min = 0.dp, max = 500.dp)
             ) {
+
                 Column(
                     modifier = Modifier.verticalScroll(scrollState)
                 ) {
+                    Row {
+                        Text(text = "DAY",
+                            fontSize = 20.sp,
+                            color = Color.Yellow,
+                            modifier = Modifier.padding(start = 50.dp)
+                        )
 
+                        Text(text = "°C",
+                            fontSize = 20.sp,
+                            color = Color.White,
+                            modifier = Modifier.padding(start = 160.dp)
+                        )
+                    }
                     // Today's forecast
                     Column {
                         if (timeList != null) {
                             for (hour in 0 until 7) {
                                 Row(verticalAlignment = Alignment.CenterVertically) {
-                                    Spacer(modifier = Modifier.size(35.dp))
+                                    Spacer(modifier = Modifier.size(20.dp))
                                     Text(
                                         text = "${getDayFromDate(index = hour, weather = weather)
                                             ?: "Loading"}.${getMonthFromDate(hour, weather)}",
