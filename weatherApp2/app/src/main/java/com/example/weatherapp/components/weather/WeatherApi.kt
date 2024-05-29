@@ -6,6 +6,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 interface WeatherApi {
+
+    // Määrittelee GET-pyynnön, joka hakee sääennusteen
     @GET("forecast")
     suspend fun getWeatherData(
         @Query("latitude") latitude: Double,
@@ -17,13 +19,16 @@ interface WeatherApi {
     ): Weather
 
 }
+
+// Singleton-objekti, joka luo ja tarjoaa WeatherApi-instanssin
 object WeatherApiService {
     private const val BASE_URL = "https://api.open-meteo.com/v1/"
 
+    // Funktio, joka luo Retrofit-instanssin ja palauttaa WeatherApi-rajapinnan
     fun create(): WeatherApi {
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create()) //Gson-muunnin JSON-datan käsittelyyn
             .build()
 
         return retrofit.create(WeatherApi::class.java)

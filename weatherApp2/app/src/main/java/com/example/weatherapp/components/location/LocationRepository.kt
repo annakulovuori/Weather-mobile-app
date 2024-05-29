@@ -16,9 +16,12 @@ import com.google.android.gms.location.Priority
 
 
 class LocationRepository(private val context: Context) {
+
+    // Funktio aloittaa sijaintipäivitykset ja kutsuu callbackia sijaintitiedoilla
     fun startLocationUpdates(callback: (Location?) -> Unit) {
         Log.d("Location", "startLocationUpdates called")
-        // Check if location permissions are granted
+
+        // Tarkista, onko sijaintiluvat myönnetty
         if (ContextCompat.checkSelfPermission(
                 context,
                 Manifest.permission.ACCESS_FINE_LOCATION
@@ -29,23 +32,26 @@ class LocationRepository(private val context: Context) {
             ) == PackageManager.PERMISSION_GRANTED
         ) {
             Log.d("Location", "Permissions granted, requesting location updates")
-            // Permissions are granted, proceed with requesting location updates
+            // Luvat myönnetty, jatketaan sijaintipäivitysten pyytämisellä
             val fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context)
             val locationRequest = LocationRequest.Builder(10000L)
-                .setPriority(Priority.PRIORITY_HIGH_ACCURACY)
-                .setIntervalMillis(10000L)
+                .setPriority(Priority.PRIORITY_HIGH_ACCURACY)// Korkea tarkkuus
+                .setIntervalMillis(10000L) // Päivitysväli 10 sekuntia
                 .build()
 
+            // Luodaan sijaintipäivityksien käsittelijä
             val locationCallback = object : LocationCallback() {
                 override fun onLocationResult(locationResult: LocationResult) {
                     Log.d("Location", "Location received: ${locationResult.lastLocation}")
+                    // Kutsutaan callbackia saadulla sijaintitiedolla
                     callback(locationResult.lastLocation)
                 }
             }
+            // Pyydetään sijaintipäivityksiä
             fusedLocationProviderClient.requestLocationUpdates(
                 locationRequest,
                 locationCallback,
-                Looper.getMainLooper()
+                Looper.getMainLooper() // Käytä pääsäiettä
             )
 
         } else {
