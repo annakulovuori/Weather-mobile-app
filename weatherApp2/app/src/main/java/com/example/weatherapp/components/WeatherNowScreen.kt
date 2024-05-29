@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.weatherapp.components.location.locationInfo
 import com.example.weatherapp.components.weather.Weather
 import com.example.weatherapp.components.weather.WeatherType
 import com.example.weatherapp.components.weather.WeatherViewModel
@@ -27,7 +28,7 @@ fun WeatherNowScreen() {
     val viewModel: WeatherViewModel = viewModel(factory = WeatherViewModelFactory.create())
     val weather = viewModel.weather.collectAsState().value
 
-    viewModel.getWeather()
+    locationInfo(weatherViewModel = viewModel)
 
     //scroll state for inner content
     val scrollState = rememberScrollState()

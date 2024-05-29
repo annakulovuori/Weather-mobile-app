@@ -38,6 +38,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.weatherapp.components.location.locationInfo
 import com.example.weatherapp.components.weather.Weather
 import com.example.weatherapp.components.weather.WeatherType
 import com.example.weatherapp.components.weather.WeatherViewModel
@@ -48,12 +49,11 @@ fun ForecastScreen() {
     val viewModel: WeatherViewModel = viewModel(factory = WeatherViewModelFactory.create())
     val weather = viewModel.weather.collectAsState().value
 
-    viewModel.getWeather()
+    locationInfo(weatherViewModel = viewModel)
 
     //scroll state for inner content
     val scrollState = rememberScrollState()
 
-    var infoIsOpen by remember { mutableStateOf(false) }
     var expandedDayIndex by remember { mutableStateOf(-1) }
 
     val timeList = weather?.daily?.time

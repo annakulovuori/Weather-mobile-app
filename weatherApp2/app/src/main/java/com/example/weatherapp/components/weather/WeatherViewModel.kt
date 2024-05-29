@@ -1,7 +1,5 @@
 package com.example.weatherapp.components.weather
 
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,13 +11,14 @@ class WeatherViewModel(
     private val weatherRepository: WeatherRepository
 ): ViewModel() {
 
-    private val _weather = MutableStateFlow<Weather?>(null) // StateFlow to hold weather data
-    val weather = _weather.asStateFlow() // Expose as StateFlow
+    private val _weather = MutableStateFlow<Weather?>(null)
+    val weather = _weather.asStateFlow()
 
-    fun getWeather() {
+    fun getWeather(latitude: Double, longitude: Double) {
         viewModelScope.launch {
             try {
-                val weatherData = weatherRepository.getWeather(61.434803, 23.828926)
+                val weatherData = weatherRepository.getWeather(61.234, 23.435)
+                //val weatherData = weatherRepository.getWeather(latitude, longitude)
                 _weather.value = weatherData
             } catch (e: Exception) {
                 println("Error fetching temperature: ${e.message}")

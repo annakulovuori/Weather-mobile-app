@@ -9,13 +9,12 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.core.location.component1
 import androidx.core.location.component2
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.weatherapp.components.weather.WeatherApiService
-import com.example.weatherapp.components.weather.WeatherRepository
+import com.example.weatherapp.components.weather.WeatherViewModel
 
 @Composable
-fun weatherInfo() {
-    val viewModel: LocationViewModel = viewModel()
-    val location = viewModel.location
+fun locationInfo(weatherViewModel: WeatherViewModel = viewModel()) {
+    val locationViewModel: LocationViewModel = viewModel()
+    val location = locationViewModel.location
 
     val permissionLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.RequestMultiplePermissions(),
@@ -24,7 +23,7 @@ fun weatherInfo() {
             val allPermissionsGranted = permissions.entries.all { it.value }
             Log.d("StartLocationUpdates", "Start")
             if (allPermissionsGranted) {
-                viewModel.startLocationUpdates()
+                locationViewModel.startLocationUpdates()
             }
         }
     )
@@ -40,10 +39,9 @@ fun weatherInfo() {
 
     if (locationData != null) {
         val (latitude, longitude) = locationData
-
-
+        weatherViewModel.getWeather(latitude, longitude)
 
     } else {
-        // Laita loading tai error
+        println("LocationData is null")
     }
 }
