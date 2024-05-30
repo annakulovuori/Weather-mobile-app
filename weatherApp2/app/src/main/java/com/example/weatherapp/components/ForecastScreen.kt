@@ -90,10 +90,10 @@ fun ForecastScreen() {
                             modifier = Modifier.padding(start = 50.dp)
                         )
 
-                        Text(text = "°C",
+                        Text(text = "MAX °C",
                             fontSize = 20.sp,
                             color = Color.White,
-                            modifier = Modifier.padding(start = 160.dp)
+                            modifier = Modifier.padding(start = 150.dp)
                         )
                     }
                     // Today's forecast
@@ -156,7 +156,7 @@ fun ForecastScreen() {
                                             )
                                         }
                                         if (expandedDayIndex == day) {
-                                            Text(text = "min: ${weather.daily.temperature_2m_min[day]}°C",
+                                            Text(text = "Min: ${weather.daily.temperature_2m_min[day]}°C",
                                                 fontSize = 20.sp,
                                                 modifier = Modifier.padding(start = 5.dp, top = 5.dp),
                                                 color = Color.White
@@ -164,7 +164,7 @@ fun ForecastScreen() {
                                             Text(text = WeatherType.getWeatherType(weather.daily.weather_code[day]).weatherDesc,
                                                 fontSize = 18.sp,
                                                 modifier = Modifier.padding(start = 10.dp, top = 5.dp),
-                                                color = Color.White
+                                                color = Color.Yellow
                                             )
                                         }
                                     }
