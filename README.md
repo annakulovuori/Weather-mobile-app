@@ -9,7 +9,7 @@ A part of mobiledevelopment course.
 
 
 # Screenshots
-![Current weather](images/HomeScreen.png)
+![Current weather](weatherApp2/images/HomeScreen.png)
 ![Seven day forecast](images/ForecastScreen.png)
 ![Seven day forecast with daily details open](images/ForecastScreen2.png)
 
