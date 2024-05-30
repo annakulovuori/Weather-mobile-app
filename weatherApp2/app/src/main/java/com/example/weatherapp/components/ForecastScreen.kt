@@ -22,6 +22,7 @@ import androidx.compose.material.icons.outlined.WaterDrop
 import androidx.compose.material.icons.outlined.WbSunny
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -101,13 +102,24 @@ fun ForecastScreen() {
                             for (day in 0 until 7) {
                                 Row(verticalAlignment = Alignment.CenterVertically) {
                                     Spacer(modifier = Modifier.size(20.dp))
-                                    Text(
-                                        text = "${getDayFromDate(index = day, weather = weather)
-                                            ?: "Loading"}.${getMonthFromDate(day, weather)}",
-                                        fontSize = 30.sp,
-                                        modifier = Modifier.padding(start = 16.dp),
-                                        color = Color.White
-                                    )
+
+                                    val dayText = getDayFromDate(index = day, weather = weather)
+                                    val monthText = getMonthFromDate(day, weather)
+
+                                    if (dayText != null) {
+                                        Text(
+                                            text = "$dayText.$monthText",
+                                            fontSize = 30.sp,
+                                            modifier = Modifier.padding(start = 16.dp),
+                                            color = Color.White
+                                        )
+                                    } else {
+                                        CircularProgressIndicator(
+                                            modifier = Modifier
+                                                .padding(start = 16.dp),
+                                            color = Color.White
+                                        )
+                                    }
                                     Spacer(modifier = Modifier.size(50.dp))
                                     Icon(
                                         imageVector = WeatherType.getWeatherType(weather.daily.weather_code[day]).icon,
