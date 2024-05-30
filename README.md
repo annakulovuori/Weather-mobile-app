@@ -1,2 +1,22 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/yzg6oRFh)
-# jetpack-compose-template
+
+# Weather-app
+An application that can be used to check current weather, next 24h and 7 day forecast in users location. The app uses users location and open-meteo API.
+
+# Motivation
+A part of mobiledevelopment course.
+
+# Screencast
+https://www.youtube.com/watch?v=VJQuvy3J-XA
+
+# Screenshots
+![Current weather](weatherApp2/images/HomeScreen.png)
+![Seven day forecast](images/ForecastScreen.png)
+![Seven day forecast with daily details open](images/ForecastScreen2.png)
+
+# Tech/framework used
+Kotlin, Jetpack Compose
+
+# Installation
+
+# Author
+Anna Kulovuori (https://github.com/annakulovuori)
