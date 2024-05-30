@@ -17,6 +17,8 @@ https://www.youtube.com/watch?v=VJQuvy3J-XA
 Kotlin, Jetpack Compose
 
 # Installation
+App can not be downloaded from any app stores.
+To use this app you have to download Android Studio and clone this repository to your computer.
 
 # Author
 Anna Kulovuori (https://github.com/annakulovuori)
