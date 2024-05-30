@@ -5,12 +5,17 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -29,6 +34,9 @@ fun WeatherNowScreen() {
     val weather = viewModel.weather.collectAsState().value
 
     locationInfo(weatherViewModel = viewModel)
+
+    // state for showing the loading indicator
+    var loading by remember { mutableStateOf(false) }
 
     //scroll state for inner content
     val scrollState = rememberScrollState()
@@ -63,12 +71,21 @@ fun WeatherNowScreen() {
                     modifier = Modifier.size(60.dp)
                 )
                 Spacer(modifier = Modifier.size(25.dp))
-                Text(
-                    text = "${weather?.current?.temperature_2m ?: "Loading"}°C",
-                    fontSize = 55.sp,
-                    modifier = Modifier.padding(start = 16.dp),
-                    color = Color.White
-                )
+                if (weather?.current?.temperature_2m != null) {
+                    Text(
+                        text = "${weather.current.temperature_2m}°C",
+                        fontSize = 55.sp,
+                        modifier = Modifier.padding(start = 16.dp),
+                        color = Color.White
+                    )
+                } else {
+                    CircularProgressIndicator(
+                        modifier = Modifier
+                            .width(74.dp)
+                            .padding(start = 16.dp),
+                        color = Color.White
+                    )
+                }
             }
             Spacer(modifier = Modifier.size(25.dp))
             Row {
@@ -90,39 +107,45 @@ fun WeatherNowScreen() {
                     .fillMaxWidth()
                     .heightIn(min = 0.dp, max = 400.dp)
             ) {
+
+                // Today's forecast
                 Column(
                     modifier = Modifier.verticalScroll(scrollState)
                 ) {
+                    val startHour = timeIndexNow ?: 0
+                    if (timeList != null) {
+                        for (hour in startHour until startHour + 24) {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Spacer(modifier = Modifier.size(50.dp))
 
-                    // Today's forecast
-                    Column {
-                        val startHour = timeIndexNow ?: 0
-                        if (timeList != null) {
-                            for (hour in startHour until startHour + 24) {
-                                Row(verticalAlignment = Alignment.CenterVertically) {
-                                    Spacer(modifier = Modifier.size(50.dp))
+                                val hourText = getHourFromTime(index = hour, weather = weather)
+                                if (hourText != null) {
                                     Text(
-                                        text = getHourFromTime(index = hour, weather = weather)
-                                            ?: "Loading...",
+                                        text = hourText,
                                         fontSize = 30.sp,
                                         modifier = Modifier.padding(start = 16.dp),
                                         color = Color.White
                                     )
-                                    Spacer(modifier = Modifier.size(50.dp))
-                                    Icon(
-                                        imageVector = WeatherType.getWeatherType(weather.hourly.weather_code[hour]).icon,
-                                        //imageVector = Icons.Outlined.Cloud,
-                                        contentDescription = WeatherType.getWeatherType(weather.hourly.weather_code[hour]).weatherDesc,
-                                        modifier = Modifier.size(30.dp)
-                                    )
-                                    Spacer(modifier = Modifier.size(15.dp))
-                                    Text(
-                                        text = "${weather.hourly.temperature_2m[hour] ?: "Loading"}°C",
-                                        fontSize = 30.sp,
-                                        modifier = Modifier.padding(start = 16.dp),
+                                } else {
+                                    CircularProgressIndicator(
+                                        modifier = Modifier
+                                            .padding(start = 16.dp),
                                         color = Color.White
                                     )
                                 }
+                                Spacer(modifier = Modifier.size(50.dp))
+                                Icon(
+                                    imageVector = WeatherType.getWeatherType(weather.hourly.weather_code[hour]).icon,
+                                    contentDescription = WeatherType.getWeatherType(weather.hourly.weather_code[hour]).weatherDesc,
+                                    modifier = Modifier.size(30.dp)
+                                )
+                                Spacer(modifier = Modifier.size(15.dp))
+                                Text(
+                                    text = "${weather.hourly.temperature_2m[hour]}°C",
+                                    fontSize = 30.sp,
+                                    modifier = Modifier.padding(start = 16.dp),
+                                    color = Color.White
+                                )
                             }
                         }
                     }
