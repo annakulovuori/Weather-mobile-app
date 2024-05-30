@@ -6,7 +6,7 @@ An application that can be used to check current weather, next 24h and 7 day for
 A part of mobiledevelopment course.
 
 # Screencast
-
+https://www.youtube.com/watch?v=VJQuvy3J-XA
 
 # Screenshots
 ![Current weather](weatherApp2/images/HomeScreen.png)
