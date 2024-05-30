@@ -10,8 +10,8 @@ https://www.youtube.com/watch?v=VJQuvy3J-XA
 
 # Screenshots
 ![Current weather](weatherApp2/images/HomeScreen.png)
-![Seven day forecast](images/ForecastScreen.png)
-![Seven day forecast with daily details open](images/ForecastScreen2.png)
+![Seven day forecast](weatherApp2/images/ForecastScreen.png)
+![Seven day forecast with daily details open](weatherApp2/images/ForecastScreen2.png)
 
 # Tech/framework used
 Kotlin, Jetpack Compose
