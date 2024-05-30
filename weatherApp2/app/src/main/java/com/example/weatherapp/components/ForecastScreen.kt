@@ -57,6 +57,7 @@ fun ForecastScreen() {
 
     var expandedDayIndex by remember { mutableStateOf(-1) }
 
+    // List of daily times
     val timeList = weather?.daily?.time
 
     Box(
@@ -66,7 +67,7 @@ fun ForecastScreen() {
 
         ) {
         Column {
-
+            // Title
             Text(text = "7 DAYS",
                 fontSize = 35.sp,
                 color = Color.Yellow,
@@ -83,6 +84,7 @@ fun ForecastScreen() {
                 Column(
                     modifier = Modifier.verticalScroll(scrollState)
                 ) {
+                    // Info titles
                     Row {
                         Text(text = "DAY",
                             fontSize = 20.sp,
@@ -99,6 +101,7 @@ fun ForecastScreen() {
                     // Today's forecast
                     Column {
                         if (timeList != null) {
+                            // Loop from 0 to 7 because a week is 7 days long
                             for (day in 0 until 7) {
                                 Row(verticalAlignment = Alignment.CenterVertically) {
                                     Spacer(modifier = Modifier.size(20.dp))
@@ -106,7 +109,8 @@ fun ForecastScreen() {
                                     val dayText = getDayFromDate(index = day, weather = weather)
                                     val monthText = getMonthFromDate(day, weather)
 
-                                    if (dayText != null) {
+                                    if (dayText != null && monthText != null) {
+                                        // Date dd.mm.
                                         Text(
                                             text = "$dayText.$monthText",
                                             fontSize = 30.sp,
@@ -121,12 +125,14 @@ fun ForecastScreen() {
                                         )
                                     }
                                     Spacer(modifier = Modifier.size(50.dp))
+                                    // Icon
                                     Icon(
                                         imageVector = WeatherType.getWeatherType(weather.daily.weather_code[day]).icon,
                                         contentDescription = WeatherType.getWeatherType(weather.daily.weather_code[day]).weatherDesc,
                                         modifier = Modifier.size(30.dp)
                                     )
                                     Spacer(modifier = Modifier.size(15.dp))
+                                    // Temperature
                                     Text(
                                         text = "${weather.daily.temperature_2m_max[day]}°C",
                                         fontSize = 30.sp,
@@ -134,6 +140,7 @@ fun ForecastScreen() {
                                         color = Color.White
                                     )
                                 }
+                                    // Button to open and close more detailed information
                                     Row {
                                         Button(
                                             onClick = {
@@ -156,11 +163,13 @@ fun ForecastScreen() {
                                             )
                                         }
                                         if (expandedDayIndex == day) {
+                                            // Min temperature
                                             Text(text = "Min: ${weather.daily.temperature_2m_min[day]}°C",
                                                 fontSize = 20.sp,
                                                 modifier = Modifier.padding(start = 5.dp, top = 5.dp),
                                                 color = Color.White
                                             )
+                                            // Weather Description
                                             Text(text = WeatherType.getWeatherType(weather.daily.weather_code[day]).weatherDesc,
                                                 fontSize = 18.sp,
                                                 modifier = Modifier.padding(start = 10.dp, top = 5.dp),
@@ -177,10 +186,12 @@ fun ForecastScreen() {
 
     }
 }
+// Returns day from date string
 fun getDayFromDate(index: Int, weather: Weather?): String? {
     val timeString = weather?.daily?.time?.get(index)
     return timeString?.substring(8, 10)
 }
+// returns month from date string
 fun getMonthFromDate(index: Int, weather: Weather?): String? {
     val timeString = weather?.daily?.time?.get(index)
     return timeString?.substring(5, 7)
