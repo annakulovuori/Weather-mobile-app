@@ -98,7 +98,7 @@ fun ForecastScreen() {
                             modifier = Modifier.padding(start = 150.dp)
                         )
                     }
-                    // Today's forecast
+
                     Column {
                         if (timeList != null) {
                             // Loop from 0 to 7 because a week is 7 days long

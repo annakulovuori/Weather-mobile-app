@@ -51,7 +51,7 @@ class LocationRepository(private val context: Context) {
             fusedLocationProviderClient.requestLocationUpdates(
                 locationRequest,
                 locationCallback,
-                Looper.getMainLooper() // Käytä pääsäiettä
+                Looper.getMainLooper() // Käytä pää säiettä
             )
 
         } else {

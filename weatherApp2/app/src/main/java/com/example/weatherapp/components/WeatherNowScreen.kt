@@ -35,8 +35,6 @@ fun WeatherNowScreen() {
 
     locationInfo(weatherViewModel = viewModel)
 
-    // state for showing the loading indicator
-    var loading by remember { mutableStateOf(false) }
 
     //scroll state for inner content
     val scrollState = rememberScrollState()

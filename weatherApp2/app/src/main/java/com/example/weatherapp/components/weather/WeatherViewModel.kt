@@ -22,8 +22,8 @@ class WeatherViewModel(
         viewModelScope.launch {
             try {
                 // Hae säädata repositoryn kautta ja päivitä _weather-tila
-                val weatherData = weatherRepository.getWeather(61.234, 23.435)
-                //val weatherData = weatherRepository.getWeather(latitude, longitude)
+                //val weatherData = weatherRepository.getWeather(61.234, 23.435)
+                val weatherData = weatherRepository.getWeather(latitude, longitude)
                 _weather.value = weatherData
             } catch (e: Exception) {
                 // Käsittele mahdolliset virheet
